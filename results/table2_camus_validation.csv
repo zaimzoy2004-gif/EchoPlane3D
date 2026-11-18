@@ -1,0 +1,25 @@
+strategy,strategy_label,sequence_quality,n_frames,dice_mean,dice_sd,dice_median,dice_q1,dice_q3,hd95_median_mm,hd95_q1_mm,hd95_q3_mm,failures_dice_below_0_5,empty_masks,first_point_in_reference_lv_pct
+naive_click,Naive single click (stock SAM 2.1: highest predicted IoU),All,120,0.278588,0.0861634,0.275492,0.217871,0.337118,85.8874,69.5512,96.6196,119,0,100
+naive_click,Naive single click (stock SAM 2.1: highest predicted IoU),Good,40,0.307817,0.0828062,0.312396,0.24179,0.347403,82.0285,70.7489,90.6845,39,0,100
+naive_click,Naive single click (stock SAM 2.1: highest predicted IoU),Medium,48,0.276492,0.0869796,0.267182,0.216093,0.342469,84.883,65.4571,101.551,48,0,100
+naive_click,Naive single click (stock SAM 2.1: highest predicted IoU),Poor,32,0.245194,0.0783724,0.230163,0.200861,0.289484,92.2145,74.0148,105.276,32,0,100
+snapped_click,Cavity-snapped single click (EchoPlane3D),All,120,0.653363,0.145539,0.666589,0.56933,0.758892,21.0782,13.7348,30.6359,18,0,100
+snapped_click,Cavity-snapped single click (EchoPlane3D),Good,40,0.725745,0.118946,0.73783,0.670126,0.805778,15.3181,11.7984,24.8659,1,0,100
+snapped_click,Cavity-snapped single click (EchoPlane3D),Medium,48,0.61687,0.16947,0.641392,0.520724,0.748808,21.0782,14.7532,31.4776,11,0,100
+snapped_click,Cavity-snapped single click (EchoPlane3D),Poor,32,0.617626,0.0991328,0.625424,0.516799,0.688728,26.6754,21.838,32.3144,6,0,100
+multi_point,Multi-point: 3 cavity + 1 wall point (EchoPlane3D),All,120,0.731947,0.0926007,0.743876,0.692358,0.792831,13.4289,10.0066,18.6117,2,0,100
+multi_point,Multi-point: 3 cavity + 1 wall point (EchoPlane3D),Good,40,0.771919,0.0708674,0.780041,0.713798,0.81815,12.5632,8.89653,16.1332,0,0,100
+multi_point,Multi-point: 3 cavity + 1 wall point (EchoPlane3D),Medium,48,0.718931,0.0925959,0.724434,0.684773,0.773323,14.1013,10.4889,19.1591,0,0,100
+multi_point,Multi-point: 3 cavity + 1 wall point (EchoPlane3D),Poor,32,0.701506,0.10158,0.717212,0.653833,0.771381,13.7349,10.8007,21.6736,2,0,100
+automatic,"Automatic prompt, no reference input (EchoPlane3D)",All,120,0.599475,0.226533,0.64579,0.501127,0.751792,22.4729,15.0184,33.7197,30,0,95
+automatic,"Automatic prompt, no reference input (EchoPlane3D)",Good,40,0.724278,0.160788,0.754271,0.64244,0.825341,16.3089,11.1552,23.432,2,0,100
+automatic,"Automatic prompt, no reference input (EchoPlane3D)",Medium,48,0.547313,0.216825,0.572336,0.38867,0.730407,24.723,18.5982,38.4809,20,0,97.9167
+automatic,"Automatic prompt, no reference input (EchoPlane3D)",Poor,32,0.521714,0.250273,0.604549,0.496983,0.702223,24.2462,20.3983,46.4474,8,0,84.375
+naive_wall_click,"Click on the myocardium, stock SAM 2.1",All,120,0.278543,0.0861381,0.275358,0.217923,0.336899,85.8892,69.5692,96.626,119,0,0
+naive_wall_click,"Click on the myocardium, stock SAM 2.1",Good,40,0.307752,0.0827985,0.312515,0.241822,0.34726,81.9264,70.8155,90.6782,39,0,0
+naive_wall_click,"Click on the myocardium, stock SAM 2.1",Medium,48,0.276413,0.08694,0.267038,0.216164,0.342032,84.8116,65.4313,101.551,48,0,0
+naive_wall_click,"Click on the myocardium, stock SAM 2.1",Poor,32,0.245227,0.0783852,0.230133,0.200869,0.289828,92.2482,73.8193,105.3,32,0,0
+snapped_wall_click,"Click on the myocardium, cavity-snapped (EchoPlane3D)",All,120,0.482843,0.269705,0.561011,0.216862,0.706296,29.0211,18.1315,42.2242,47,0,43.3333
+snapped_wall_click,"Click on the myocardium, cavity-snapped (EchoPlane3D)",Good,40,0.580223,0.267625,0.654254,0.471088,0.780996,19.4073,14.9664,33.0851,10,0,57.5
+snapped_wall_click,"Click on the myocardium, cavity-snapped (EchoPlane3D)",Medium,48,0.41739,0.268707,0.484334,0.157115,0.635769,34.595,22.1053,48.0769,24,0,31.25
+snapped_wall_click,"Click on the myocardium, cavity-snapped (EchoPlane3D)",Poor,32,0.459296,0.24538,0.535042,0.316824,0.644073,30.0996,23.9268,41.4222,13,0,43.75

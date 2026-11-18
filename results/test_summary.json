@@ -1,0 +1,10 @@
+{
+  "passed": 182,
+  "failed": 0,
+  "skipped": 0,
+  "errors": 0,
+  "total": 182,
+  "summary_line": "182 passed in 79.06s (0:01:19)",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "date": "2026-11-18"
+}

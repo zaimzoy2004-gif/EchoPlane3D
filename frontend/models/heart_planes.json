@@ -1,0 +1,319 @@
+{
+  "units": "mm",
+  "model": "schematic implicit-surface teaching model (marching cubes, 1.5 mm voxels); not patient-derived",
+  "world_axes": {
+    "+X": "patient left",
+    "+Y": "superior",
+    "+Z": "anterior"
+  },
+  "pivot": [
+    12.3193,
+    -0.8141,
+    2.9154
+  ],
+  "apex": [
+    67.0328,
+    -53.7625,
+    47.0392
+  ],
+  "long_axis": [
+    0.621743,
+    -0.601687,
+    0.501406
+  ],
+  "lv_length_mm": 88.0,
+  "lv_radius_mm": 26.0,
+  "colors": {
+    "LV": "#ef4444",
+    "IVS": "#b45309",
+    "RV": "#3b82f6",
+    "LA": "#f9a8d4",
+    "RA": "#93c5fd",
+    "Aorta": "#f59e0b",
+    "PA": "#8b5cf6",
+    "SVC": "#22d3ee",
+    "IVC": "#0891b2"
+  },
+  "chambers": {
+    "LV": {
+      "volume_ml": 146.0,
+      "centroid": [
+        29.09,
+        -17.04,
+        16.44
+      ],
+      "label": [
+        40.27,
+        -23.44,
+        20.87
+      ],
+      "description": "Left ventricle (cavity): conical, thick-walled systemic pump",
+      "vertices": 9776
+    },
+    "IVS": {
+      "volume_ml": 25.0,
+      "centroid": [
+        18.03,
+        -19.08,
+        37.93
+      ],
+      "label": [
+        26.64,
+        -30.75,
+        52.94
+      ],
+      "description": "Interventricular septum between LV and RV",
+      "vertices": 5666
+    },
+    "RV": {
+      "volume_ml": 69.4,
+      "centroid": [
+        2.34,
+        -5.07,
+        41.44
+      ],
+      "label": [
+        -4.75,
+        -8.42,
+        46.87
+      ],
+      "description": "Right ventricle: crescent wrapped round the septum, with the infundibulum (RVOT)",
+      "vertices": 8264
+    },
+    "LA": {
+      "volume_ml": 37.8,
+      "centroid": [
+        -1.64,
+        14.22,
+        -24.23
+      ],
+      "label": [
+        -3.2,
+        11.71,
+        -24.64
+      ],
+      "description": "Left atrium with the left atrial appendage (LAA)",
+      "vertices": 4150
+    },
+    "RA": {
+      "volume_ml": 37.8,
+      "centroid": [
+        -38.37,
+        0.35,
+        7.33
+      ],
+      "label": [
+        -38.37,
+        0.35,
+        7.33
+      ],
+      "description": "Right atrium",
+      "vertices": 3690
+    },
+    "Aorta": {
+      "volume_ml": 65.8,
+      "centroid": [
+        -16.37,
+        25.9,
+        -31.68
+      ],
+      "label": [
+        -17.11,
+        30.69,
+        -2.55
+      ],
+      "description": "Aortic root, ascending aorta, arch with three branch stubs, descending thoracic aorta",
+      "vertices": 9732
+    },
+    "PA": {
+      "volume_ml": 42.0,
+      "centroid": [
+        -15.99,
+        46.27,
+        -16.79
+      ],
+      "label": [
+        -11.69,
+        55.23,
+        0.23
+      ],
+      "description": "Main pulmonary artery and its bifurcation under the aortic arch",
+      "vertices": 6918
+    },
+    "SVC": {
+      "volume_ml": 10.4,
+      "centroid": [
+        -38.37,
+        40.76,
+        7.33
+      ],
+      "label": [
+        -38.37,
+        46.35,
+        7.33
+      ],
+      "description": "Superior vena cava entering the right atrium from above",
+      "vertices": 2038
+    },
+    "IVC": {
+      "volume_ml": 10.5,
+      "centroid": [
+        -38.37,
+        -32.16,
+        7.33
+      ],
+      "label": [
+        -38.37,
+        -35.65,
+        7.33
+      ],
+      "description": "Inferior vena cava entering the right atrium from below",
+      "vertices": 1866
+    }
+  },
+  "planes": {
+    "A4C": {
+      "label": "Apical 4-Chamber",
+      "description": "Probe at the apex, beam through the crux of the heart. All four chambers and the septum; LV on screen right, RV on screen left.",
+      "origin": [
+        72.0067,
+        -58.576,
+        51.0504
+      ],
+      "beam": [
+        -0.621743,
+        0.601687,
+        -0.501406
+      ],
+      "right": [
+        0.771432,
+        0.359789,
+        -0.524829
+      ],
+      "normal": [
+        -0.135382,
+        -0.713109,
+        -0.687857
+      ],
+      "tilt_axis": [
+        -0.771432,
+        -0.359789,
+        0.524829
+      ],
+      "depth_mm": 150.0,
+      "sector_deg": 80.0,
+      "apical": true,
+      "expected_chambers": [
+        "LV",
+        "IVS",
+        "RV",
+        "LA",
+        "RA"
+      ]
+    },
+    "A2C": {
+      "label": "Apical 2-Chamber",
+      "description": "Rotate ~60 deg counter-clockwise from A4C. Only LV and LA (with the appendage); anterior wall on screen right, inferior wall on screen left.",
+      "origin": [
+        72.0067,
+        -58.576,
+        51.0504
+      ],
+      "beam": [
+        -0.621743,
+        0.601687,
+        -0.501406
+      ],
+      "right": [
+        0.50296,
+        0.797465,
+        0.333287
+      ],
+      "normal": [
+        0.600388,
+        -0.044968,
+        -0.798443
+      ],
+      "tilt_axis": [
+        -0.50296,
+        -0.797465,
+        -0.333287
+      ],
+      "depth_mm": 150.0,
+      "sector_deg": 80.0,
+      "apical": true,
+      "expected_chambers": [
+        "LV",
+        "LA"
+      ]
+    },
+    "PLAX": {
+      "label": "Parasternal Long-Axis",
+      "description": "Probe at the left sternal border, plane along the LV long axis. RVOT on top, then septum, LV, aortic root and LA; apex off-screen to the left.",
+      "origin": [
+        1.4961,
+        24.245,
+        82.3062
+      ],
+      "beam": [
+        0.268471,
+        -0.437676,
+        -0.858116
+      ],
+      "right": [
+        -0.621743,
+        0.601687,
+        -0.501406
+      ],
+      "normal": [
+        0.735771,
+        0.668141,
+        -0.110587
+      ],
+      "tilt_axis": null,
+      "depth_mm": 150.0,
+      "sector_deg": 80.0,
+      "apical": false,
+      "expected_chambers": [
+        "LV",
+        "IVS",
+        "RV",
+        "LA",
+        "Aorta"
+      ]
+    },
+    "PSAX": {
+      "label": "Parasternal Short-Axis (mid-papillary)",
+      "description": "Rotate 90 deg clockwise from PLAX. Circular LV with the septum and the crescent RV wrapping it at the top-left.",
+      "origin": [
+        15.1744,
+        11.0079,
+        93.3372
+      ],
+      "beam": [
+        0.268471,
+        -0.437676,
+        -0.858116
+      ],
+      "right": [
+        0.735771,
+        0.668141,
+        -0.110587
+      ],
+      "normal": [
+        0.621743,
+        -0.601687,
+        0.501406
+      ],
+      "tilt_axis": null,
+      "depth_mm": 140.0,
+      "sector_deg": 80.0,
+      "apical": false,
+      "expected_chambers": [
+        "LV",
+        "IVS",
+        "RV"
+      ]
+    }
+  }
+}

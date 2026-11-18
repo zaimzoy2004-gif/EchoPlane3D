@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use EchoPlane3D, please cite it as below, and cite SAM 2 and the CAMUS dataset if you use them."
+title: "EchoPlane3D: an open-source, offline split-screen workbench coupling video foundation models with 3D cardiac plane slicing for echocardiography training"
+type: software
+version: 1.1.0
+date-released: 2026-11-18
+license: MIT
+authors:
+  - family-names: "Zaim"
+    given-names: "Burhan"
+    affiliation: "Faculty of Medicine and Health, Al-Farabi Kazakh National University, Almaty, Kazakhstan"
+repository-code: "https://github.com/YOUR_GITHUB_USERNAME/EchoPlane3D"
+keywords:
+  - echocardiography
+  - education
+  - Simpson's method of disks
+  - left ventricular ejection fraction
+  - apical foreshortening
+  - SAM 2
+  - Three.js
+abstract: >-
+  EchoPlane3D is an offline teaching and research workbench that links a 2-D echocardiography clip,
+  segmented and tracked with the SAM 2.1 video foundation model and quantified with the 20-disk
+  method of disks, to a 3-D cardiac model sliced along the standard echocardiographic planes, including
+  an interactive simulation of apical foreshortening. It is a research prototype, not a medical device.
+references:
+  - type: article
+    title: "SAM 2: Segment Anything in Images and Videos"
+    authors:
+      - family-names: Ravi
+        given-names: Nikhila
+      - name: "et al."
+    year: 2024
+    identifiers:
+      - type: other
+        value: "arXiv:2408.00714"
+  - type: article
+    title: "Deep Learning for Segmentation using an Open Large-Scale Dataset in 2D Echocardiography"
+    authors:
+      - family-names: Leclerc
+        given-names: Sarah
+      - name: "et al."
+    journal: "IEEE Transactions on Medical Imaging"
+    volume: 38
+    issue: 9
+    start: 2198
+    end: 2210
+    year: 2019
+    doi: "10.1109/TMI.2019.2900516"

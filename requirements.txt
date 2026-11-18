@@ -1,0 +1,27 @@
+# EchoPlane3D runtime + test dependencies (versions verified on the reference machine, Python 3.10.12).
+# GPU (CUDA 12.4) build of PyTorch:
+#   pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+# CPU-only (tests, CI):
+#   pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cpu
+# SAM 2.1 is installed from source at the commit used for all reported results:
+#   pip install "git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4"
+#   then download checkpoints/sam2.1_hiera_tiny.pt (see README) — or set ECHOPLANE_SAM2_REPO / ECHOPLANE_SAM2_CHECKPOINT
+numpy==2.2.6
+scipy==1.15.3
+opencv-python-headless==5.0.0.93
+scikit-image==0.25.2
+SimpleITK==2.5.7
+trimesh==5.2.1
+networkx==3.4.2
+fastapi==0.162.5
+starlette==1.7.0
+uvicorn==0.54.0
+pydantic==2.14.3
+python-multipart==0.0.32
+httpx==0.28.1
+tqdm==4.70.1
+matplotlib==3.10.9
+pillow==12.3.0
+hydra-core==1.3.8
+iopath==0.1.10
+pytest==9.2.0

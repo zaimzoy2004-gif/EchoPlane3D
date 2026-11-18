@@ -1,0 +1,50 @@
+strategy,measure,unit,comparator,n,n_excluded,mae,bias,sd_diff,loa_low,loa_high,pearson_r,pearson_p,icc_2_1
+naive_click,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,42.1282,-42.1095,18.1416,-77.6671,-6.55192,0.130308,0.492502,0.000312712
+naive_click,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,47.5902,-47.5902,15.6215,-78.2084,-16.9721,-0.0948389,0.618126,-0.000186398
+naive_click,lvef_bp,pts,reference masks (same Simpson code),30,0,45.254,-45.254,15.9041,-76.4261,-14.082,0.0700737,0.712908,0.000130795
+naive_click,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,1405.44,1405.44,627.927,174.699,2636.17,0.457843,0.0109556,0.0125437
+naive_click,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,1447.25,1447.25,624.359,223.507,2671,0.533589,0.00239277,0.0137927
+naive_click,edv_bp,mL,reference masks (same Simpson code),30,0,1416.09,1416.09,621.12,198.7,2633.49,0.455118,0.0115023,0.0139622
+naive_click,esv_bp,mL,reference masks (same Simpson code),30,0,1460.03,1460.03,617.677,249.384,2670.68,0.509657,0.00401674,0.014922
+naive_click,lvef_bp,pts,dataset-reported EF (Info file),30,0,36.9255,-36.9255,14.4536,-65.2546,-8.59636,0.116693,0.53915,0.000289969
+snapped_click,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,123.469,-107.88,269.997,-637.073,421.313,0.081726,0.667683,0.00969713
+snapped_click,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,27.5366,-9.65569,34.3612,-77.0037,57.6923,0.321654,0.0830406,0.226654
+snapped_click,lvef_bp,pts,reference masks (same Simpson code),30,0,37.8465,-22.9425,62.8747,-146.177,100.292,0.352981,0.0557083,0.147012
+snapped_click,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,58.4066,-53.6816,36.9068,-126.019,18.6557,0.730784,4.52518e-06,0.468274
+snapped_click,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,30.2089,-22.6853,28.0163,-77.5974,32.2267,0.838896,7.04959e-09,0.762185
+snapped_click,edv_bp,mL,reference masks (same Simpson code),30,0,37.4,-26.9127,35.9102,-97.2967,43.4714,0.822989,2.37355e-08,0.749006
+snapped_click,esv_bp,mL,reference masks (same Simpson code),30,0,22.2266,-9.87645,25.8588,-60.5597,40.8068,0.898358,1.63663e-11,0.888156
+snapped_click,lvef_bp,pts,dataset-reported EF (Info file),30,0,37.1572,-14.614,62.6652,-137.438,108.21,0.379107,0.0388223,0.154336
+multi_point,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,28.1114,-0.263855,36.4303,-71.6673,71.1396,0.12614,0.506561,0.108134
+multi_point,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,49.7796,-33.4023,124.298,-277.026,210.221,0.212764,0.258972,0.0498014
+multi_point,lvef_bp,pts,reference masks (same Simpson code),30,0,22.935,-3.37883,32.1634,-66.4192,59.6615,0.128376,0.498995,0.108308
+multi_point,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,48.3281,-17.1252,74.1783,-162.515,128.264,0.374152,0.0416607,0.339209
+multi_point,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,28.0498,-20.8107,26.2924,-72.3438,30.7223,0.851031,2.54869e-09,0.755266
+multi_point,edv_bp,mL,reference masks (same Simpson code),30,0,37.3476,-18.7855,44.06,-105.143,67.572,0.724718,5.92896e-06,0.694765
+multi_point,esv_bp,mL,reference masks (same Simpson code),30,0,23.86,-15.7289,24.5489,-63.8447,32.3869,0.907623,4.55338e-12,0.858279
+multi_point,lvef_bp,pts,dataset-reported EF (Info file),30,0,23.7852,4.94971,31.667,-57.1177,67.0171,0.127177,0.503044,0.100185
+automatic,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,1016.06,-997.584,3721.61,-8291.94,6296.77,0.378932,0.0389199,0.00355462
+automatic,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,68.1712,-50.8731,207.36,-457.299,355.553,0.0728562,0.702014,0.0105944
+automatic,lvef_bp,pts,reference masks (same Simpson code),30,0,64.9389,-47.2674,149.075,-339.454,244.919,0.331697,0.0733467,0.063992
+automatic,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,54.3603,-47.5411,40.8381,-127.584,32.5015,0.678522,3.7702e-05,0.475974
+automatic,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,31.3595,-17.9778,39.5093,-95.4159,59.4604,0.776637,4.52601e-07,0.726037
+automatic,edv_bp,mL,reference masks (same Simpson code),30,0,47.9361,-22.9579,53.9381,-128.677,82.7608,0.640956,0.000135593,0.599267
+automatic,esv_bp,mL,reference masks (same Simpson code),30,0,29.1404,-5.54999,39.9341,-83.8208,72.7208,0.803951,8.74779e-08,0.797453
+automatic,lvef_bp,pts,dataset-reported EF (Info file),30,0,64.8499,-38.9388,149.357,-331.679,253.801,0.335969,0.069499,0.0607674
+naive_wall_click,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,42.1226,-42.096,18.1297,-77.6302,-6.56175,0.179268,0.343192,0.000524204
+naive_wall_click,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,47.5756,-47.5756,15.6042,-78.1599,-16.9913,0.0155069,0.935179,2.74145e-05
+naive_wall_click,lvef_bp,pts,reference masks (same Simpson code),30,0,45.2234,-45.2234,15.8923,-76.3724,-14.0745,0.151872,0.423041,0.000295304
+naive_wall_click,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,1405.81,1405.81,627.759,175.403,2636.22,0.45792,0.0109404,0.0125382
+naive_wall_click,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,1447.41,1447.41,624.322,223.741,2671.08,0.533427,0.00240152,0.0137853
+naive_wall_click,edv_bp,mL,reference masks (same Simpson code),30,0,1416.76,1416.76,621.166,199.278,2634.25,0.45615,0.0112925,0.0139844
+naive_wall_click,esv_bp,mL,reference masks (same Simpson code),30,0,1460.46,1460.46,618.018,249.146,2671.78,0.509433,0.00403552,0.0149133
+naive_wall_click,lvef_bp,pts,dataset-reported EF (Info file),30,0,36.8949,-36.8949,14.4325,-65.1826,-8.60723,0.263501,0.159447,0.00068225
+snapped_wall_click,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,727.116,-697.622,1816.9,-4258.74,2863.5,0.0204124,0.914738,0.000366164
+snapped_wall_click,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,91.7356,-59.686,189.171,-430.462,311.09,-0.0450629,0.813082,-0.00697186
+snapped_wall_click,lvef_bp,pts,reference masks (same Simpson code),30,0,149.958,-120.862,432.969,-969.482,727.758,-0.0833921,0.661304,-0.00588063
+snapped_wall_click,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,74.958,-65.4431,63.0645,-189.05,58.1634,0.263666,0.159175,0.148779
+snapped_wall_click,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,40.8504,-31.8067,42.5057,-115.118,51.5046,0.579534,0.000790452,0.464321
+snapped_wall_click,edv_bp,mL,reference masks (same Simpson code),30,0,63.1856,-43.9278,69.2934,-179.743,91.8872,0.354209,0.0548031,0.284116
+snapped_wall_click,esv_bp,mL,reference masks (same Simpson code),30,0,40.6418,-27.2155,61.0604,-146.894,92.4628,0.182007,0.335745,0.138396
+snapped_wall_click,lvef_bp,pts,dataset-reported EF (Info file),30,0,149.403,-112.533,431.968,-959.192,734.125,-0.0258629,0.89209,-0.00167512
+reference_masks,lvef_bp,pts,dataset-reported EF (Info file),30,0,8.32893,8.32854,4.02634,0.436901,16.2202,0.969324,1.3264e-18,0.839975

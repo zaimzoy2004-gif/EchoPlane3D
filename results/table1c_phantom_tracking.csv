@@ -1,0 +1,3 @@
+sample,n_frames,prompt,truth_edv_ml,est_edv_ml,edv_error_pct,truth_esv_ml,est_esv_ml,esv_error_pct,truth_lvef_pct,est_lvef_pct,lvef_error_pts,dice_mean,dice_min,hd95_median_mm,quality_level
+phantom_normal,50,auto-centroid,120,114.45,-4.625,48,45.04,-6.16667,60,60.65,0.65,0.984365,0.981919,0.68,good
+phantom_hfref,50,auto-centroid,210,200.42,-4.5619,142.8,135.62,-5.02801,32,32.33,0.33,0.986112,0.985088,0.68,good

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EchoPlane3D · 2D/3D Echo Workbench</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 3 27a16 16 0 0 0 26 0Z' fill='%2338bdf8' fill-opacity='.35' stroke='%2338bdf8' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='18' r='4.5' fill='%23ef4444'/%3E%3C/svg%3E" />
+
+  <!-- Zero-build, fully offline stack: every library is vendored under frontend/vendor/ (no CDN, no network). -->
+  <script src="vendor/tailwindcss-play-3.4.17.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { ink: { 950: '#060a13', 900: '#0b111d', 850: '#0f1727', 800: '#141d30', 700: '#1c2740', 600: '#2a3756' } },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="vendor/plotly-2.35.2.min.js" charset="utf-8"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/build/three.module.js",
+        "three/addons/": "./vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+
+  <style>
+    html, body { height: 100%; }
+    body { background: radial-gradient(1200px 600px at 50% -10%, #10203a 0%, #060a13 55%) fixed, #060a13; }
+    .panel { background: linear-gradient(180deg, rgba(20, 29, 48, .78), rgba(11, 17, 29, .88)); border: 1px solid rgba(71, 85, 105, .35); border-radius: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .03); }
+    .panel-title { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #8696b3; font-weight: 600; white-space: nowrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; border-radius: 9px; padding: .34rem .65rem; font-size: 12px; font-weight: 600; border: 1px solid rgba(100, 116, 139, .4); background: rgba(30, 41, 59, .6); color: #cbd5e1; transition: all .15s ease; white-space: nowrap; }
+    .btn:hover:not(:disabled) { background: rgba(51, 65, 85, .8); border-color: rgba(148, 163, 184, .6); color: #f1f5f9; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn:focus-visible, .chip:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+    .btn-primary { background: linear-gradient(180deg, #0ea5e9, #0284c7); border-color: #38bdf8; color: white; }
+    .btn-primary:hover:not(:disabled) { background: linear-gradient(180deg, #38bdf8, #0ea5e9); color: white; }
+    .btn-icon { width: 30px; height: 30px; padding: 0; font-size: 13px; }
+    .seg { display: inline-flex; border-radius: 10px; overflow: hidden; border: 1px solid rgba(100, 116, 139, .4); background: rgba(15, 23, 42, .7); }
+    .seg button { padding: .3rem .62rem; font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: .03em; transition: all .15s; }
+    .seg button + button { border-left: 1px solid rgba(100, 116, 139, .3); }
+    .seg button:hover:not(:disabled) { color: #e2e8f0; background: rgba(51, 65, 85, .5); }
+    .seg button.active { background: linear-gradient(180deg, #0ea5e9, #0369a1); color: white; }
+    .seg button:disabled { opacity: .35; cursor: not-allowed; }
+    .chip { border-radius: 999px; padding: .24rem .62rem; font-size: 11.5px; font-weight: 600; border: 1px solid rgba(56, 189, 248, .35); color: #bae6fd; background: rgba(14, 165, 233, .08); transition: all .15s; white-space: nowrap; flex: none; }
+    .chip:hover { background: rgba(14, 165, 233, .22); border-color: #38bdf8; color: white; }
+    .toggle { display: inline-flex; align-items: center; gap: .38rem; font-size: 12px; color: #cbd5e1; cursor: pointer; user-select: none; white-space: nowrap; }
+    .toggle input { appearance: none; width: 28px; height: 16px; border-radius: 999px; background: #334155; position: relative; transition: background .15s; cursor: pointer; flex: none; }
+    .toggle input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #e2e8f0; transition: transform .15s; }
+    .toggle input:checked { background: var(--tone, #0ea5e9); }
+    .toggle input:checked::after { transform: translateX(12px); }
+    input[type=range] { appearance: none; height: 5px; border-radius: 999px; background: #263349; cursor: pointer; }
+    input[type=range]::-webkit-slider-thumb { appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #38bdf8; border: 2px solid #0b111d; box-shadow: 0 0 0 1px #38bdf8; }
+    input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border-radius: 50%; background: #38bdf8; border: 2px solid #0b111d; }
+    input[type=range].amber::-webkit-slider-thumb { background: #f59e0b; box-shadow: 0 0 0 1px #f59e0b; }
+    input[type=range].amber::-moz-range-thumb { background: #f59e0b; }
+    input[type=range]:disabled { opacity: .4; cursor: not-allowed; }
+    select.field, .field { background: rgba(15, 23, 42, .8); border: 1px solid rgba(100, 116, 139, .4); border-radius: 9px; color: #e2e8f0; font-size: 12.5px; padding: .34rem .55rem; }
+    .num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+    .hud { background: rgba(6, 10, 19, .74); backdrop-filter: blur(6px); border: 1px solid rgba(71, 85, 105, .4); border-radius: 9px; padding: .28rem .55rem; font-size: 11.5px; }
+    .scroll::-webkit-scrollbar { width: 8px; height: 6px; } .scroll::-webkit-scrollbar-thumb { background: #263349; border-radius: 8px; } .scroll::-webkit-scrollbar-track { background: transparent; }
+    .bubble { border-radius: 12px; padding: .45rem .65rem; font-size: 12.5px; line-height: 1.48; max-width: 94%; overflow-wrap: anywhere; }
+    .bubble.bot { background: rgba(30, 41, 59, .75); border: 1px solid rgba(71, 85, 105, .4); color: #dbe4f0; align-self: flex-start; }
+    .bubble.user { background: rgba(14, 165, 233, .18); border: 1px solid rgba(56, 189, 248, .4); color: #e0f2fe; align-self: flex-end; }
+    .bubble strong { color: #f8fafc; }
+    .bubble .tag { display: inline-block; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; padding: 0 .35rem; border-radius: 5px; margin-bottom: .2rem; }
+    .bubble .tag.det { color: #6ee7b7; border: 1px solid rgba(16, 185, 129, .45); }
+    .bubble .tag.llm { color: #fcd34d; border: 1px solid rgba(245, 158, 11, .5); }
+    .bubble .verified { margin-top: .4rem; padding: .3rem .5rem; border-left: 2px solid #10b981; background: rgba(16, 185, 129, .08); border-radius: 0 6px 6px 0; font-size: 12px; }
+    .quiz-opt { display: block; width: 100%; text-align: left; margin-top: .32rem; border-radius: 8px; padding: .32rem .6rem; font-size: 12px; border: 1px solid rgba(100, 116, 139, .45); background: rgba(15, 23, 42, .6); color: #e2e8f0; transition: all .15s; }
+    .quiz-opt:hover:not(:disabled) { border-color: #38bdf8; background: rgba(14, 165, 233, .15); }
+    .quiz-opt.right { border-color: #22c55e; background: rgba(34, 197, 94, .18); }
+    .quiz-opt.wrong { border-color: #f43f5e; background: rgba(244, 63, 94, .16); }
+    .spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(56, 189, 248, .25); border-top-color: #38bdf8; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #usCanvas { max-width: 100%; max-height: 100%; cursor: crosshair; border-radius: 8px; background: #000; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+    .kv td { padding: .12rem 0; } .kv td:last-child { text-align: right; }
+    .pill-est { color: #6ee7b7; } .pill-ref { color: #93c5fd; } .pill-rep { color: #c4b5fd; }
+
+    /* Desktop shell: exactly one viewport tall. The single grid row is minmax(0, 1fr), so no pane can grow
+       the row (and resize the WebGL canvas) when its content grows — e.g. when a chat message is appended. */
+    @media (min-width: 1100px) {
+      body { overflow: hidden; height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
+      main { flex: 1 1 0; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+      .pane { min-height: 0; overflow: hidden; }
+      #paneRight { overflow-y: auto; }
+    }
+    @media (max-width: 1099px) { .pane { min-height: 560px; } #guidePanel { min-height: 380px; } }
+    @media (max-height: 800px) { .tight-hide { display: none; } .panel.p-3 { padding: .55rem; } #plot { height: 104px !important; } #runStats { display: none !important; } }
+  </style>
+</head>
+
+<body class="text-slate-200 font-sans antialiased">
+  <!-- ───────────────────────────── Header ───────────────────────────── -->
+  <header class="h-[54px] flex-none px-4 flex items-center justify-between gap-3 border-b border-slate-800/80 bg-ink-950/70 backdrop-blur">
+    <div class="flex items-center gap-3 min-w-0">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true" class="flex-none">
+        <path d="M16 3 3 27a16 16 0 0 0 26 0Z" fill="#38bdf8" fill-opacity=".25" stroke="#38bdf8" stroke-width="1.8" stroke-linejoin="round" />
+        <circle cx="16" cy="18" r="4.5" fill="#ef4444" />
+      </svg>
+      <div class="min-w-0">
+        <h1 class="text-[15px] font-bold tracking-tight text-slate-50 leading-none">EchoPlane<span class="text-sky-400">3D</span></h1>
+        <p class="text-[10.5px] text-slate-500 leading-tight mt-0.5 truncate">Educational &amp; research prototype — not a medical device · runs fully offline</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-[11px] flex-none">
+      <span id="engineChip" class="hud text-emerald-300" title="Which engine answers the clinical guide">Offline Deterministic Tutor</span>
+      <span id="gpuChip" class="hud num text-slate-400 hidden min-[1300px]:inline">GPU …</span>
+      <span id="vramChip" class="hud num text-slate-400 hidden"></span>
+      <span id="statusChip" class="hud flex items-center gap-1.5"><span id="statusDot" class="w-2 h-2 rounded-full bg-amber-400"></span><span id="statusText">Loading…</span></span>
+    </div>
+  </header>
+
+  <main class="grid grid-cols-1 min-[1100px]:grid-cols-[minmax(0,1.02fr)_minmax(0,1.16fr)_minmax(340px,0.92fr)] gap-3 p-3">
+    <!-- ───────────────────────── Left: 2D ultrasound ───────────────────────── -->
+    <section class="panel pane relative flex flex-col p-3 gap-2" aria-label="2D ultrasound">
+      <div class="flex items-center justify-between gap-2">
+        <span class="panel-title">2D Ultrasound</span>
+        <div class="flex items-center gap-1.5 min-w-0">
+          <select id="subjectSelect" class="field min-w-0 max-w-[230px] truncate" aria-label="Subject"></select>
+          <div id="seqButtons" class="seg flex-none" role="group" aria-label="Apical sequence shown in 2D">
+            <button data-seq="A4C" class="active" title="Apical 4-chamber clip">4C</button><button data-seq="A2C" title="Apical 2-chamber clip">2C</button>
+          </div>
+          <button id="btnUpload" class="btn flex-none" title="Upload your own .mp4 / .avi echo clip">Upload Echo</button>
+        </div>
+      </div>
+
+      <div id="usWrap" class="relative flex-1 min-h-0 flex items-center justify-center rounded-lg bg-black/60 border border-slate-800 overflow-hidden">
+        <canvas id="usCanvas" width="512" height="512"></canvas>
+        <div class="absolute top-2 left-2 hud num text-slate-300"><span id="hudFrame">frame –</span> · <span id="hudTime">0.00 s</span> <span id="hudPhase" class="ml-1 font-bold"></span></div>
+        <div class="absolute top-2 right-2 hud num text-right"><span id="hudVolumeLabel" class="text-slate-400">LV volume</span> <span id="hudVolume" class="text-emerald-400 font-bold text-[13px]">–</span></div>
+        <button id="qualityBadge" type="button" class="absolute bottom-2 left-2 hud hidden text-left max-w-[70%] border-amber-500/60 text-amber-200" title="Show tracking-quality details">⚠ <span id="qualityText">Tracking quality warning</span></button>
+        <div id="usHint" class="absolute bottom-2 left-1/2 -translate-x-1/2 hud text-slate-300 text-center pointer-events-none whitespace-nowrap">Click inside the LV cavity on frame 1, or press <b>Auto-segment</b></div>
+        <div id="usBusy" class="absolute inset-0 hidden flex-col items-center justify-center gap-3 bg-ink-950/75 backdrop-blur-sm">
+          <div class="spinner"></div>
+          <div id="usBusyText" class="text-[12.5px] text-slate-200">SAM 2.1 is tracking the LV…</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="btnPrev" class="btn btn-icon" title="Previous frame (←)" aria-label="Previous frame">⏮</button>
+        <button id="btnPlay" class="btn btn-icon btn-primary" title="Play / pause (space)" aria-label="Play or pause">▶</button>
+        <button id="btnNext" class="btn btn-icon" title="Next frame (→)" aria-label="Next frame">⏭</button>
+        <input id="frameSlider" type="range" min="0" max="0" value="0" class="flex-1 min-w-0" aria-label="Frame" />
+        <select id="speedSelect" class="field" aria-label="Playback speed" title="Playback speed">
+          <option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option>
+        </select>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
+        <div class="flex items-center gap-3">
+          <label class="toggle" style="--tone:#22c55e"><input id="ovMask" type="checkbox" checked /> <span>Mask</span></label>
+          <label class="toggle" style="--tone:#eab308"><input id="ovAxis" type="checkbox" checked /> <span>Long axis</span></label>
+          <label class="toggle" style="--tone:#06b6d4"><input id="ovChords" type="checkbox" checked /> <span>20 disks</span></label>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button id="btnED" class="btn" title="Jump to end-diastole" disabled>ED</button>
+          <button id="btnES" class="btn" title="Jump to end-systole" disabled>ES</button>
+          <button id="btnAuto" class="btn btn-primary" title="Segment with an automatic LV centroid prompt">Auto-segment</button>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-t border-slate-800/80 pt-2">
+        <div class="flex items-center gap-3">
+          <label class="toggle" style="--tone:#a78bfa" title="A single click on bright wall is moved into the adjacent blood pool"><input id="tgSnap" type="checkbox" checked /> <span>Auto-snap</span></label>
+          <label class="toggle" style="--tone:#f472b6" title="Place several points: click = cavity (+), Shift+click = not cavity (−)"><input id="tgMulti" type="checkbox" /> <span>Multi-point</span></label>
+        </div>
+        <div id="multiBar" class="hidden items-center gap-1.5">
+          <span id="multiCount" class="num text-[11px] text-slate-400">0 points</span>
+          <button id="btnMultiClear" class="btn">Clear</button>
+          <button id="btnMultiRun" class="btn btn-primary" disabled>Segment points</button>
+        </div>
+      </div>
+      <p id="sampleInfo" class="text-[11px] text-slate-500 leading-snug num tight-hide"></p>
+
+      <!-- upload popover -->
+      <form id="uploadForm" class="hidden absolute z-20 top-12 right-3 w-[300px] panel p-3 flex-col gap-2" aria-label="Upload an echo clip">
+        <div class="panel-title">Upload echo clip</div>
+        <input id="uploadFile" type="file" accept=".mp4,.avi,video/mp4,video/x-msvideo" class="text-[12px] text-slate-300 file:mr-2 file:rounded-md file:border-0 file:bg-slate-700 file:px-2 file:py-1 file:text-slate-100" required />
+        <label class="text-[11.5px] text-slate-400 flex items-center justify-between gap-2">Calibration (mm / pixel, optional)
+          <input id="uploadMm" type="number" step="0.001" min="0.01" max="5" placeholder="e.g. 0.30" class="field w-[92px] num" />
+        </label>
+        <label class="text-[11.5px] text-slate-400 flex items-center justify-between gap-2">Apical view
+          <select id="uploadView" class="field"><option value="A4C">A4C</option><option value="A2C">A2C</option></select>
+        </label>
+        <p class="text-[10.5px] text-slate-500 leading-snug">Clips are stored only on this machine, capped at 90 frames. Without calibration, volumes are a pixel-scale index (LVEF is unaffected). Remove patient identifiers before uploading.</p>
+        <div class="flex justify-end gap-1.5"><button type="button" id="uploadCancel" class="btn">Cancel</button><button type="submit" id="uploadSubmit" class="btn btn-primary">Upload</button></div>
+      </form>
+    </section>
+
+    <!-- ───────────────────────── Centre: 3D navigator ───────────────────────── -->
+    <section class="panel pane flex flex-col p-3 gap-2" aria-label="3D probe navigator">
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <span class="panel-title">3D Probe Navigator</span>
+        <div id="viewButtons" class="seg" role="group" aria-label="Echo view">
+          <button data-view="A4C" class="active">A4C</button><button data-view="A2C">A2C</button><button data-view="PLAX">PLAX</button><button data-view="PSAX">PSAX</button>
+        </div>
+      </div>
+
+      <div id="threeWrap" class="relative flex-1 min-h-0 rounded-lg overflow-hidden border border-slate-800" style="background:#0b0f19">
+        <div class="absolute top-2 left-2 hud max-w-[60%] pointer-events-none">
+          <div id="viewLabel" class="text-[12.5px] font-bold text-slate-100">–</div>
+          <div id="viewDesc" class="text-[11px] text-slate-400 leading-snug mt-0.5 tight-hide"></div>
+        </div>
+        <div class="absolute top-2 right-2 flex flex-col items-end gap-1.5">
+          <div id="camButtons" class="seg" role="group" aria-label="Camera">
+            <button data-cam="anatomic" class="active" title="Oblique anatomical vantage">Anatomic</button><button data-cam="echo" title="Look straight at the cut, probe at the top — like the echo screen">Echo-aligned</button>
+          </div>
+          <div id="syncBadge" class="hud hidden text-sky-200 border-sky-500/40 max-w-[250px] text-right"></div>
+        </div>
+        <div class="absolute bottom-2 left-2 hud flex flex-wrap gap-x-2.5 gap-y-0.5 max-w-[66%]" id="legend"></div>
+        <div id="tiltBadge" class="absolute bottom-2 right-2 hud num hidden"><span class="text-amber-400 font-bold">Foreshortened</span> <span id="tiltBadgeText" class="text-slate-300"></span></div>
+        <div id="threeFallback" class="absolute inset-0 hidden items-center justify-center text-sm text-slate-300 p-6 text-center"></div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-3">
+          <label for="tiltSlider" class="text-[12px] font-semibold text-slate-300 whitespace-nowrap">Apical foreshortening tilt</label>
+          <input id="tiltSlider" type="range" min="0" max="30" step="1" value="0" class="flex-1 min-w-0 amber" />
+          <span id="tiltValue" class="num text-[13px] font-bold text-amber-400 w-10 text-right">0°</span>
+        </div>
+        <div class="flex items-center justify-between flex-wrap gap-x-3 gap-y-1">
+          <div class="flex items-center gap-3 flex-wrap">
+            <label class="toggle"><input id="tgCutaway" type="checkbox" checked /> <span>Cut-away</span></label>
+            <label class="toggle"><input id="tgFan" type="checkbox" checked /> <span>Sector fan</span></label>
+            <label class="toggle"><input id="tgLabels" type="checkbox" checked /> <span>Labels</span></label>
+            <label class="toggle" style="--tone:#ef4444" title="The 3-D LV contracts with the measured V(t)"><input id="tgBeat" type="checkbox" checked /> <span>LV beat</span></label>
+          </div>
+          <span id="tiltNote" class="text-[11px] text-slate-500 tight-hide">0° = plane through the true apex</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── Right: quantification + guide ───────────────────────── -->
+    <section id="paneRight" class="pane flex flex-col gap-2.5 scroll" aria-label="Quantification and clinical guide">
+      <div class="panel p-3 flex-none">
+        <div class="flex items-center justify-between"><span class="panel-title">Volume–time curve V(t)</span><span id="plotNote" class="text-[10.5px] text-slate-500 truncate ml-2"></span></div>
+        <div id="plot" class="w-full mt-1" style="height:clamp(132px, 19vh, 205px)"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2.5 flex-none">
+        <div class="panel p-3">
+          <div class="panel-title">Measured LVEF</div>
+          <div class="flex items-baseline gap-1 mt-0.5"><span id="efTrue" class="num text-[27px] font-extrabold text-emerald-400 leading-none">–</span><span class="text-slate-500 text-sm">%</span></div>
+          <div class="num text-[11.5px] text-slate-400 mt-1 leading-snug">EDV <span id="edvTrue" class="text-slate-200">–</span> <span class="unit">mL</span> · ESV <span id="esvTrue" class="text-slate-200">–</span> <span class="unit">mL</span></div>
+          <div id="efSource" class="text-[10.5px] text-slate-500 mt-0.5 truncate"></div>
+        </div>
+        <div class="panel p-3">
+          <div class="panel-title flex items-center justify-between"><span>Foreshortened</span><span id="efTilt" class="num text-amber-400 normal-case tracking-normal">0°</span></div>
+          <div class="flex items-baseline gap-1 mt-0.5"><span id="efFore" class="num text-[27px] font-extrabold text-amber-400 leading-none">–</span><span class="text-slate-500 text-sm">%</span><span id="efDelta" class="num text-[11.5px] ml-1 font-semibold text-slate-400"></span></div>
+          <div class="num text-[11.5px] text-slate-400 mt-1 leading-snug">EDV <span id="edvFore" class="text-slate-200">–</span> <span id="edvErr" class="text-rose-400"></span> · ESV <span id="esvFore" class="text-slate-200">–</span> <span id="esvErr" class="text-rose-400"></span></div>
+          <div id="lenFore" class="num text-[10.5px] text-slate-500 mt-0.5 truncate"></div>
+        </div>
+      </div>
+
+      <div class="panel px-3 py-2 flex-none">
+        <div class="flex items-center justify-between"><span class="panel-title">Estimates vs references</span><span class="text-[10px] text-slate-500"><span class="pill-est">■</span> algorithm <span class="pill-ref">■</span> dataset masks <span class="pill-rep">■</span> dataset-reported</span></div>
+        <table class="kv w-full num text-[11.5px] text-slate-300 mt-1">
+          <tr><td><span class="pill-est">■</span> Single-plane LVEF (<span id="kvView">A4C</span>)</td><td id="kvSingle">–</td></tr>
+          <tr><td><span class="pill-est">■</span> Biplane LVEF (A4C + A2C)</td><td id="kvBiplane" class="text-slate-500">–</td></tr>
+          <tr><td><span class="pill-ref">■</span> Reference single-plane LVEF</td><td id="kvRefSingle">–</td></tr>
+          <tr><td><span class="pill-ref">■</span> Reference biplane LVEF</td><td id="kvRefBiplane">–</td></tr>
+          <tr class="tight-hide"><td><span class="pill-rep">■</span> Dataset-reported biplane EF</td><td id="kvReported">–</td></tr>
+        </table>
+        <div id="runStats" class="text-[10.5px] num text-slate-500 mt-1 truncate hidden"></div>
+      </div>
+
+      <div id="guidePanel" class="panel p-3 flex flex-col gap-2 flex-1 min-h-[150px]">
+        <div class="flex items-center justify-between flex-none"><span class="panel-title">Clinical guide</span><span id="guideEngine" class="text-[10.5px] text-emerald-300">Offline Deterministic Tutor</span></div>
+        <div id="guidePresets" class="flex gap-1.5 overflow-x-auto scroll pb-1 flex-none"></div>
+        <div id="guideLog" class="flex-1 min-h-0 overflow-y-auto scroll flex flex-col gap-2 pr-1" aria-live="polite"></div>
+        <form id="guideForm" class="flex gap-2 flex-none">
+          <input id="guideInput" class="field flex-1 min-w-0" placeholder="Ask: show me PLAX · explain foreshortening · quiz me" maxlength="300" autocomplete="off" />
+          <button class="btn btn-primary" type="submit" id="guideSend">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="toasts" class="fixed bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-50 pointer-events-none"></div>
+  <noscript><p style="padding:2rem;color:#fff">EchoPlane3D needs JavaScript.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

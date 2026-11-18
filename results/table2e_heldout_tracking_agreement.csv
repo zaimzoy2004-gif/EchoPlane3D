@@ -1,0 +1,17 @@
+prompt,measure,unit,comparator,n,n_excluded,mae,bias,sd_diff,loa_low,loa_high,pearson_r,pearson_p,icc_2_1,n_physically_plausible_lvef
+automatic,lvef_bp,pts,reference masks (same Simpson code),30,0,12.8643,3.58187,16.3341,-28.4329,35.5966,0.484051,0.00672154,0.480378,
+automatic,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,15.7231,8.56344,19.5591,-29.7724,46.8993,0.437163,0.0157065,0.40112,
+automatic,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,14.9997,-3.39958,18.8758,-40.3962,33.597,0.438305,0.0154056,0.428025,
+automatic,edv_bp,mL,reference masks (same Simpson code),30,0,49.553,-13.461,61.6298,-134.255,107.334,0.617252,0.000279632,0.586919,
+automatic,esv_bp,mL,reference masks (same Simpson code),30,0,35.3307,-9.36639,48.2514,-103.939,85.2063,0.673877,4.46017e-05,0.671518,
+automatic,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,48.2476,-44.2416,37.7932,-118.316,29.8331,0.756749,1.30614e-06,0.5641,
+automatic,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,33.9465,-31.5672,28.0168,-86.4801,23.3458,0.827332,1.72496e-08,0.667221,
+automatic,lvef_bp,pts,dataset-reported EF (Info file),30,0,16.0935,11.8617,16.6489,-20.7702,44.4936,0.412683,0.0234271,0.320555,30
+snapped_click,lvef_bp,pts,reference masks (same Simpson code),30,0,9.74122,4.70858,13.3663,-21.4894,30.9066,0.6103,0.000342025,0.583789,
+snapped_click,lvef_sp_a4c,pts,reference masks (same Simpson code),30,0,13.3144,9.45844,14.8789,-19.7041,38.621,0.614917,0.00029936,0.529293,
+snapped_click,lvef_sp_a2c,pts,reference masks (same Simpson code),30,0,13.924,-1.70191,16.5215,-34.0841,30.6802,0.521929,0.00309409,0.522687,
+snapped_click,edv_bp,mL,reference masks (same Simpson code),30,0,35.9598,-17.7191,37.9066,-92.016,56.5778,0.812164,5.07351e-08,0.778758,
+snapped_click,esv_bp,mL,reference masks (same Simpson code),30,0,25.0242,-14.8108,28.3156,-70.3094,40.6877,0.873398,3.01908e-10,0.845413,
+snapped_click,edv_sp_a4c,mL,reference masks (same Simpson code),30,0,48.9982,-43.5876,35.5226,-113.212,26.0367,0.77338,5.42276e-07,0.576533,
+snapped_click,esv_sp_a4c,mL,reference masks (same Simpson code),30,0,33.8215,-31.2412,25.0884,-80.4144,17.9321,0.864242,7.56525e-10,0.706547,
+snapped_click,lvef_bp,pts,dataset-reported EF (Info file),30,0,14.9726,12.9884,13.1995,-12.8826,38.8594,0.57002,0.00100749,0.40625,30
