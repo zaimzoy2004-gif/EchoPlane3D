@@ -29,7 +29,7 @@ not a medical device.
 |---|---|---|
 | C1 | Current code version | v1.1.0 |
 | C2 | Permanent link to code/repository used for this code version | https://github.com/zaimzoy2004-gif/EchoPlane3D |
-| C3 | Permanent link to a reproducible capsule | TO BE ADDED (Zenodo DOI of the release) |
+| C3 | Permanent link to a reproducible capsule | https://doi.org/10.5281/zenodo.24377991 |
 | C4 | Legal code licence | MIT |
 | C5 | Code versioning system used | git |
 | C6 | Software code languages, tools and services used | Python 3.10, JavaScript (ES modules), FastAPI, PyTorch, SAM 2 (commit 2b90b9f), three.js, Plotly |
