@@ -28,7 +28,7 @@ not a medical device.
 | Nr. | Code metadata description | Value |
 |---|---|---|
 | C1 | Current code version | v1.1.0 |
-| C2 | Permanent link to code/repository used for this code version | https://github.com/YOUR_GITHUB_USERNAME/EchoPlane3D |
+| C2 | Permanent link to code/repository used for this code version | https://github.com/zaimzoy2004-gif/EchoPlane3D |
 | C3 | Permanent link to a reproducible capsule | TO BE ADDED (Zenodo DOI of the release) |
 | C4 | Legal code licence | MIT |
 | C5 | Code versioning system used | git |
